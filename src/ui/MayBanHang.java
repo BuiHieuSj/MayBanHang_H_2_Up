@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Scanner;
 
 import quanly.QuanLySanPham;
+import auth.AdminAuth;
 
 import tien.GiaoDich;
 import tien.QuanLyTien;
@@ -55,7 +56,17 @@ public class MayBanHang {
                     break;
 
                 case 2:
-                    admin.chay();
+                    System.out.print("Nhập mật khẩu admin: ");
+
+                    String password =  sc.nextLine();
+
+                    if (AdminAuth.dangNhap(password)) {
+                        admin.chay();
+                    } else {
+                        System.out.println("❌ Sai mật khẩu!");
+                    }
+
+
                     break;
 
                 case 0:
