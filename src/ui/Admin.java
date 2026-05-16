@@ -120,7 +120,7 @@ public class Admin {
         boolean ketQua = qlTien.botToTien(menhGia, soLuong);
 
         if (ketQua) {
-            System.out.println("✅ Đã bớt " + soLuong + " tờ " + menhGia + "đ");
+            System.out.println("✅ Đã bớt " + soLuong + " tờ " + menhGia + " VND");
         }
     }
 

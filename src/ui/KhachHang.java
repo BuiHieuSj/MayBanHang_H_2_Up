@@ -113,7 +113,7 @@ public class KhachHang {
 
         giaoDich.napTien(tien);
 
-        System.out.println("Tổng tiền hiện tại: " + giaoDich.tongTienTam() + "đ");
+        System.out.println("Tổng tiền hiện tại: " + giaoDich.tongTienTam() + " VND");
     }
 
     // GIAO DIỆN XEM SẢN PHẨM

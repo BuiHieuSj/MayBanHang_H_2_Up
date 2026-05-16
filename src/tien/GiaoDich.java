@@ -3,6 +3,8 @@ package tien;
 import java.util.ArrayList;
 import cacloaisanpham.SanPham;
 
+import util.LichSuHelper;
+
 public class GiaoDich {
 
     // Tiền khách đã nạp tạm
@@ -30,7 +32,10 @@ public class GiaoDich {
 
         dsTienTam.add(menhGia);
 
-        System.out.println("Đã nạp " + menhGia + "đ");
+        System.out.println("Đã nạp " + menhGia + " VND");
+
+        // Lịch sử nạp tiền
+        LichSuHelper.ghi("Nạp tiền: " + menhGia + " VND");
     }
 
     // HIỂN THỊ TIỀN KHÁCH ĐÃ NẠP
@@ -39,7 +44,7 @@ public class GiaoDich {
         System.out.println("\n===== TIỀN ĐÃ NẠP =====");
 
         for (int tien : dsTienTam) {
-            System.out.println(tien + "đ");
+            System.out.println(tien + " VND");
         }
     }
 
@@ -61,15 +66,16 @@ public class GiaoDich {
         System.out.println("\nĐã trả lại tiền cho khách:");
 
         for (int tien : dsTienTam) {
-            System.out.println(tien + "đ");
+            System.out.println(tien + " VND");
         }
 
         dsTienTam.clear();
+
+        // Lưu lịch sử hủy giao dịch
+        LichSuHelper.ghi("Hủy giao dịch");
     }
 
     // THỐI TIỀN
-    // =========================
-
     private void thoiTien(int soTienCanThoi) {
 
         int tongTienThoi = soTienCanThoi;
@@ -99,11 +105,14 @@ public class GiaoDich {
 
             // Nếu có dùng mệnh giá này
             if (soLuongToTien > 0) {
-                System.out.println(tien + "đ : " + soLuongToTien + " tờ");
+                System.out.println(tien + " VND : " + soLuongToTien + " tờ");
             }
         }
 
-        System.out.println("\nTổng tiền thối: " + tongTienThoi + "đ");
+        System.out.println("\nTổng tiền thối: " + tongTienThoi + " VND");
+
+        // Lưu lịch sử thối tiền
+        LichSuHelper.ghi("Thối tiền: " + tongTienThoi + " VND");
     }
 
     // THANH TOÁN
@@ -151,6 +160,9 @@ public class GiaoDich {
         dsTienTam.clear();
 
         System.out.println("\n✅ Mua " + sanPham.getTenSP() + " thành công!");
+
+        // Lưu lịch sử thanh toán
+        LichSuHelper.ghi("Mua: " + sanPham.getTenSP() + " - " + sanPham.getGiaBan() + " VND");
     }
 
     // KIỂM TRA ĐÃ NẠP TIỀN CHƯA
