@@ -2,6 +2,7 @@ package cacloaisanpham;
 
 import cacloaibaobi.LoaiBaoBi;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 public class SanPham implements Serializable {
@@ -87,46 +88,37 @@ public class SanPham implements Serializable {
                 + getLoai() + " | " + "Bao bì: " + getLoaiBaoBi() + " | " + "Số lượng: " + getSoLuong();
     }
 
-    // TẠO KEY CHO HASHMAP
-    public String taoKey() {
-
-        return tenSP.toLowerCase()
-                + "_"
-                + loai
-                + "_"
-                + baoBi
-                + "_"
-                + giaBan;
-    }
-
-    // OVERRIDE EQUALS
-    @Override
-    public boolean equals(Object obj) {
-
-        // Cùng object
-        if (this == obj) {
-
-            return true;
-        }
-
-        // Null hoặc khác class
-        if (obj == null
-                || getClass() != obj.getClass()) {
-
-            return false;
-        }
-
-        // Ép kiểu
-        SanPham sp = (SanPham) obj;
-
-        // So sánh key
-        return taoKey().equals(sp.taoKey());
-    }
-
-    // OVERRIDE HASHCODE
     @Override
     public int hashCode() {
+        // Tạo mã đại diện cho từng sản phẩm
+        return Objects.hash(tenSP, giaBan, loai, baoBi);
 
-        return taoKey().hashCode();
+        /*
+        int result = 1;
+
+        result = 31 * result + tenSP.hashCode();
+        result = 31 * result + Integer.hashCode(giaBan);
+        result = 31 * result + loai.hashCode();
+        result = 31 * result + baoBi.hashCode();
+
+        return result;
+         */
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+
+        if (o == null || this.getClass() != o.getClass())
+                return false;
+
+        // Ép kiểu về SanPham
+        /* Vì o đang có kiểu Object -> cần ép về kiểu SanPham -> truy cập đưuọc o2.giaBan, o2.tenSP,... */
+        SanPham o2 = (SanPham) o;
+
+        return giaBan == o2.giaBan && Objects.equals(tenSP, o2.tenSP) && Objects.equals(loai, o2.loai) && baoBi == o2.baoBi;
+
+    }
+
 }

@@ -111,41 +111,49 @@ public class QuanLySanPham {
 
     // THÊM SẢN PHẨM
     public void themSanPham(SanPham spMoi) {
-        // Tạo key
-        String key = spMoi.taoKey();
+        for (SanPham sp : ds.values()) {
+            // equals() sẽ tự được gọi
+            if (sp.equals(spMoi)) {
+                sp.setSoLuong(sp.getSoLuong() + spMoi.getSoLuong());
 
-        // Nếu đã tồn tại
-        if (ds.containsKey(key)) {
-            SanPham sp = ds.get(key);
+                System.out.println("✅ Đã cộng số lượng sản phẩm!");
 
-            // Cộng số lượng
-            sp.setSoLuong(sp.getSoLuong() + spMoi.getSoLuong());
-        } else {
-            // Thêm mới
-            ds.put(key, spMoi);
+                ghiFileObject("dataSP.dat");
+
+                return;
+            }
         }
 
-        // CHÚ Ý: XEM XÉT ĐỂ XÓA (VÌ BỊ GỌI LẠI NHIỀU)
+        // CHỈ thêm mới sau khi kiểm tra hết
+        ds.put(UUID.randomUUID().toString(), spMoi);
+
+        System.out.println("✅ Đã thêm sản phẩm mới!");
+
         ghiFileObject("dataSP.dat");
     }
 
 
     // XÓA SẢN PHẨM
     public void xoaSanPham(int index) {
-        ArrayList<SanPham> dsTam = new ArrayList<>(ds.values());
 
-        if (index < 0 || index >= dsTam.size()) {
-            System.out.println("❌ Không tồn tại sản phẩm!");
-            return;
+            ArrayList<String> dsKey = new ArrayList<>(ds.keySet());
+
+            if (index < 0 || index >= dsKey.size()) {
+
+                System.out.println("❌ Không tồn tại sản phẩm!");
+                return;
+            }
+
+            String key = dsKey.get(index);
+
+            SanPham sp = ds.get(key);
+
+            ds.remove(key);
+
+            ghiFileObject("dataSP.dat");
+
+            System.out.println("✅ Đã xóa: " + sp.getTenSP());
         }
-
-        SanPham sp = dsTam.get(index);
-        ds.remove(sp.taoKey());
-
-        ghiFileObject("dataSP.dat");
-
-        System.out.println("✅ Đã xóa: " + sp.getTenSP());
-    }
 
 
     // HIỂN THỊ DANH SÁCH SẢN PHẨM
